@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef vector<int> vi;
+#define clr(x,val)           memset((x),(val),sizeof(x))
+int N, dp[101][50050], sum ;
+vi ve;
+int sol(int i, int A)
+{
+	if (i == N)
+		return abs((sum - A) - A);
+	int& ret = dp[i][A];
+	if (~ret)
+		return ret;
+	return ret = min(sol(i + 1, A + ve[i]), sol(i + 1, A));
+}
+void solve()
+{
+	cin >> N;
+	ve = vi(N);
+	clr(dp, -1);
+	sum = 0;
+	for (auto& it : ve)
+		cin >> it, sum += it;
+	cout << sol(0, 0) << "\n";
+}
+int main()
+{
+	int T ; cin >> T;
+	while (T--)
+		solve();
+}
